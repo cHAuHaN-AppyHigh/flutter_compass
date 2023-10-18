@@ -40,17 +40,17 @@ class FlutterCompass {
 
   FlutterCompass._();
 
-  static const EventChannel _compassChannel =
-      const EventChannel('hemanthraj/flutter_compass');
+  static const EventChannel _compassChannel = const EventChannel('hemanthraj/flutter_compass');
   static Stream<CompassEvent>? _stream;
 
   /// Provides a [Stream] of compass events that can be listened to.
-  static Stream<CompassEvent>? get events {
+  /// Controls the compass update rate in milliseconds
+  static Stream<CompassEvent>? events ({int compassUpdateRate = 32}) {
     if (kIsWeb) {
       return Stream.empty();
     }
     _stream ??= _compassChannel
-        .receiveBroadcastStream()
+        .receiveBroadcastStream([compassUpdateRate])
         .map((dynamic data) => CompassEvent.fromList(data?.cast<double>()));
     return _stream;
   }

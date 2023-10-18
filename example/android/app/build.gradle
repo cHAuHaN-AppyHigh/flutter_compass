@@ -15,7 +15,10 @@ apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 33
+    if (project.android.hasProperty("namespace")) {
+        namespace 'com.hemanthraj.fluttercompass'
+    }
 
     lintOptions {
         disable 'InvalidPackage'
@@ -24,7 +27,7 @@ android {
     defaultConfig {
         applicationId "com.hemanthraj.fluttercompassexample"
         minSdkVersion 23
-        targetSdkVersion 30
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
     }
